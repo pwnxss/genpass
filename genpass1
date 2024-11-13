@@ -1,0 +1,15 @@
+import random
+import string
+def gen_pass(length=8):
+    all_chars=string.ascii_letters+string.digits+string.punctuation
+    password=''.join(random.choice(all_chars) for i in range(length))
+    return password
+
+password_length_str=input("input:")
+if password_length_str:
+    password_length=int(password_length_str)
+else:
+    password_length=8
+
+password=gen_pass(password_length)
+print(f"input is {password}")
