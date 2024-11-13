@@ -1,0 +1,8 @@
+from scapy.all import ARP, Ether, srp
+
+def arp_scan():
+    answered, unanswered = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=2, verbose=False)
+    print(f"Sent: {len(answered) + len(unanswered)}, Received: {len(answered)}")
+    return [{'IP': r.psrc, 'MAC': r.hwsrc} for _, r in answered]
+
+print(arp_scan())
