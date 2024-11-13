@@ -1,0 +1,9 @@
+from scapy.all import ARP, Ether, srp
+def arp_scan():
+    target_ip = "192.168.1.1/24"
+    arp_request = ARP(pdst=target_ip)
+    broadcast = Ether(dst="ff:ff:ff:ff:ff:ff")
+    arp_request_broadcast = broadcast/arp_request
+    answered_list = srp(arp_request_broadcast, timeout=2, verbose=False)[0]
+    return [{'IP': r.psrc, 'MAC': r.hwsrc} for _, r in answered_list]
+print(arp_scan())
